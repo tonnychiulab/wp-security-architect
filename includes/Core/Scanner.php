@@ -11,10 +11,14 @@ class Scanner
 
     private $root_dir;
     private $time_limit = 2.5; // Seconds (Safety buffer for 30s limit)
+    private $hunter;
+    private $result_service;
 
     public function __construct($root_dir = ABSPATH)
     {
         $this->root_dir = $root_dir;
+        $this->hunter   = new Hunter();
+        $this->result_service = new \WPSA\Services\ResultService();
     }
 
     /**
@@ -75,7 +79,18 @@ class Scanner
 
     private function inspect_file($file)
     {
-        // Placeholder for Hunter/Auditor Logic
-        // In the future: $hunter->analyze($file);
+        if ($file->isFile()) {
+            $result = $this->hunter->analyze($file->getPathname());
+            if ($result) {
+                // Suspicious!
+                // Save to DB
+                $this->result_service->add_issue(
+                    $file->getPathname(),
+                    $result['type'],
+                    $result['score'],
+                    $result['message']
+                );
+            }
+        }
     }
 }

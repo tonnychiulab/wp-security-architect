@@ -122,4 +122,39 @@ class WPScanService
 
         return $affecting_vulns;
     }
+
+    /**
+     * Get API Token Status (Quota)
+     */
+    public function get_api_status()
+    {
+        if (! $this->has_api_key()) {
+            return false;
+        }
+
+        // Cache for 1 hour
+        $cached = get_transient('wpsa_api_status');
+        if (false !== $cached) {
+            return $cached;
+        }
+
+        $response = wp_remote_get($this->api_url . 'status', [
+            'headers' => [
+                'Authorization' => 'Token ' . $this->api_key,
+                'User-Agent'    => 'WP-Security-Architect/1.0.0'
+            ],
+            'timeout' => 5
+        ]);
+
+        if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+            return false;
+        }
+
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        set_transient('wpsa_api_status', $data, 1 * HOUR_IN_SECONDS);
+
+        return $data;
+    }
 }
