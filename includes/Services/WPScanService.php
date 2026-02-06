@@ -26,6 +26,14 @@ class WPScanService
     }
 
     /**
+     * Set API key manually (for validation)
+     */
+    public function set_api_key($key)
+    {
+        $this->api_key = $key;
+    }
+
+    /**
      * Get vulnerabilities for installed plugins
      */
     public function get_plugin_vulnerabilities()
@@ -148,8 +156,13 @@ class WPScanService
             'timeout' => 5
         ]);
 
-        if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
-            return false;
+        if (is_wp_error($response)) {
+            return ['error' => $response->get_error_message()];
+        }
+
+        $code = wp_remote_retrieve_response_code($response);
+        if (200 !== $code) {
+            return ['error' => 'API Error: ' . $code . ' (Check Key)'];
         }
 
         $body = wp_remote_retrieve_body($response);

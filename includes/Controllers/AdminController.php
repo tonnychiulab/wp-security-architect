@@ -74,7 +74,9 @@ class AdminController
     public function render_settings()
     {
         // Will be handled by SettingsController, or simple include
-        echo '<div class="wrap"><h1>WP Security Architect Settings</h1><form method="post" action="options.php">';
+        echo '<div class="wrap"><h1>WP Security Architect Settings</h1>';
+        settings_errors();
+        echo '<form method="post" action="options.php">';
         settings_fields('wpsa_settings_group');
         do_settings_sections('wpsa-settings');
         submit_button();

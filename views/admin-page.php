@@ -42,8 +42,7 @@ $malware_issues = $result_service->get_issues();
         if ($api_key_set) {
             $api_status = $wpscan_service->get_api_status();
 
-            // DEBUG: Uncomment if needed
-            // echo '<pre>API Debug: '; var_dump($api_status); echo '</pre>'; 
+            // DEBUG (Removed)
 
             if (is_array($api_status) && isset($api_status['requests_remaining'])) : ?>
                 <div class="wpsa-api-status" style="background:#f0f6fc; border:1px solid #cce5ff; padding:10px; border-radius:4px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
