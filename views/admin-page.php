@@ -42,6 +42,9 @@ $malware_issues = $result_service->get_issues();
         if ($api_key_set) {
             $api_status = $wpscan_service->get_api_status();
 
+            // DEBUG: Temporary output to check what's going on
+            // echo '<pre>'; var_dump($api_status); echo '</pre>'; 
+
             if ($api_status && isset($api_status['requests_remaining'])) : ?>
                 <div class="wpsa-api-status" style="background:#f0f6fc; border:1px solid #cce5ff; padding:10px; border-radius:4px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
                     <span><span class="dashicons dashicons-admin-network" style="color:#2271b1"></span> <strong>API Plan:</strong> <?php echo esc_html(ucfirst($api_status['plan'] ?? 'Free')); ?></span>

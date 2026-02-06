@@ -134,9 +134,11 @@ class WPScanService
 
         // Cache for 1 hour
         $cached = get_transient('wpsa_api_status');
-        if (false !== $cached) {
+        /* DEBUG: Force refresh
+        if ( false !== $cached ) {
             return $cached;
         }
+        */
 
         $response = wp_remote_get($this->api_url . 'status', [
             'headers' => [
