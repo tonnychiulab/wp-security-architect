@@ -42,17 +42,23 @@ $malware_issues = $result_service->get_issues();
         if ($api_key_set) {
             $api_status = $wpscan_service->get_api_status();
 
-            // DEBUG: Temporary output to check what's going on
-            // echo '<pre>'; var_dump($api_status); echo '</pre>'; 
+            // DEBUG: Uncomment if needed
+            // echo '<pre>API Debug: '; var_dump($api_status); echo '</pre>'; 
 
-            if ($api_status && isset($api_status['requests_remaining'])) : ?>
+            if (is_array($api_status) && isset($api_status['requests_remaining'])) : ?>
                 <div class="wpsa-api-status" style="background:#f0f6fc; border:1px solid #cce5ff; padding:10px; border-radius:4px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
                     <span><span class="dashicons dashicons-admin-network" style="color:#2271b1"></span> <strong>API Plan:</strong> <?php echo esc_html(ucfirst($api_status['plan'] ?? 'Free')); ?></span>
                     <span><span class="dashicons dashicons-chart-pie" style="color:#2271b1"></span> <strong>Requests Remaining:</strong> <?php echo esc_html($api_status['requests_remaining']); ?></span>
                 </div>
-            <?php elseif (isset($api_status['error'])) : ?>
+            <?php else :
+                // Handle Error or Unexpected State
+                $error_msg = isset($api_status['error']) ? $api_status['error'] : 'Unknown API Error (Status: ' . json_encode($api_status) . ')';
+            ?>
                 <div class="notice notice-warning inline" style="margin-bottom: 20px;">
-                    <p>Unable to load API usage: <?php echo esc_html($api_status['error']); ?></p>
+                    <p>
+                        <strong>API Connection Issue:</strong> <?php echo esc_html($error_msg); ?>
+                        <br><small>If this persists, please check your API Key in Settings.</small>
+                    </p>
                 </div>
         <?php endif;
         }

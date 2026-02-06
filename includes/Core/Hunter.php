@@ -17,9 +17,9 @@ class Hunter
      */
     public function analyze($file_path)
     {
-        // Only scan PHP files (Performance)
-        // TODO: In Phase 3, we might scan JS too, but for now PHP is the main vector
-        if (pathinfo($file_path, PATHINFO_EXTENSION) !== 'php') {
+        // Only scan PHP, HTML, JS files
+        $ext = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+        if (! in_array($ext, ['php', 'html', 'htm', 'js'])) {
             return false;
         }
 
