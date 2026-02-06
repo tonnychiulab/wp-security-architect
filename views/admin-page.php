@@ -1,4 +1,7 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit;
+}
 // Initialize Service
 $wpscan_service = new \WPSA\Services\WPScanService();
 $api_key_set    = $wpscan_service->has_api_key();
@@ -35,7 +38,7 @@ if ($api_key_set) {
             <div class="notice notice-warning inline">
                 <p>
                     <strong>API Key Missing:</strong> The Auditor cannot check for plugin vulnerabilities without a WPScan API Key.
-                    <a href="<?php echo admin_url('admin.php?page=wpsa-settings'); ?>">Configure it here</a>.
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=wpsa-settings')); ?>">Configure it here</a>.
                 </p>
             </div>
         <?php elseif (isset($vulnerabilities['error'])) : ?>

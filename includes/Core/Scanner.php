@@ -2,6 +2,10 @@
 
 namespace WPSA\Core;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 class Scanner
 {
 

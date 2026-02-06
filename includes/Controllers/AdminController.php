@@ -2,6 +2,10 @@
 
 namespace WPSA\Controllers;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 class AdminController
 {
 

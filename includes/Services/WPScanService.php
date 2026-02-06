@@ -2,6 +2,10 @@
 
 namespace WPSA\Services;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 class WPScanService
 {
 
