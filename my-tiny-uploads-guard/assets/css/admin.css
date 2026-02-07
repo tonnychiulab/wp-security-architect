@@ -1,0 +1,580 @@
+/* Admin Wrapper */
+.mtug-wrapper {
+    width: 98%;
+    margin: 20px 20px 0 0;
+}
+
+.mtug-title-section {
+    margin-bottom: 20px;
+}
+
+/* Dashboard Grid */
+.mtug-dashboard-grid {
+    display: flex;
+    /* Changed from grid to flex for better compatibility */
+    gap: 20px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.mtug-controls-card {
+    flex: 2;
+    /* Takes 2/3 space */
+    min-width: 0;
+    /* Prevents overflow */
+}
+
+.mtug-stats-grid {
+    flex: 1;
+    /* Takes 1/3 space */
+    min-width: 250px;
+}
+
+/* Common Card Style */
+.mtug-card,
+.mtug-stat-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 24px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+}
+
+.mtug-stat-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent;
+    /* Prepare for active state */
+}
+
+.mtug-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mtug-stat-card.active {
+    background-color: #f0f6fc;
+    border-color: #2271b1;
+    border-left-color: #2271b1;
+}
+
+/* Controls Card (Left) */
+.mtug-controls-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mtug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mtug-header h2 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* Status Badge */
+.status-ready {
+    color: #2271b1;
+    font-weight: bold;
+}
+
+.status-scanning {
+    color: #dba617;
+    font-weight: bold;
+}
+
+.status-complete {
+    color: #00a32a;
+    font-weight: bold;
+}
+
+.status-error {
+    color: #d63638;
+    font-weight: bold;
+}
+
+/* Progress */
+.mtug-progress-area {
+    margin-bottom: 20px;
+}
+
+.mtug-progress-container {
+    height: 10px;
+    /* Slimmer */
+    background-color: #f0f0f1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+#mtug-progress-bar {
+    height: 100%;
+    background-color: #2271b1;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.mtug-progress-container.scanning #mtug-progress-bar {
+    background-image: linear-gradient(45deg,
+            rgba(255, 255, 255, 0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(255, 255, 255, 0.15) 75%,
+            transparent 75%,
+            transparent);
+    background-size: 1rem 1rem;
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.mtug-progress-stats {
+    font-size: 0.9em;
+    color: #646970;
+}
+
+#mtug-scanned-count {
+    font-weight: bold;
+    color: #1d2327;
+}
+
+/* Stats Grid (Right Stats) */
+/* Stats Grid (Right Stats) */
+.mtug-stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@media (max-width: 782px) {
+    .mtug-dashboard-grid {
+        flex-direction: column;
+    }
+
+    .mtug-controls-card {
+        min-width: 100%;
+        margin-right: 0;
+    }
+
+    .mtug-stats-grid {
+        min-width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .mtug-stat-card {
+        flex: 1;
+        min-width: 150px;
+    }
+}
+
+/* Results Header & Pagination */
+.mtug-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.mtug-results-header h3 {
+    margin: 0;
+}
+
+.mtug-pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mtug-page-info {
+    font-weight: bold;
+    color: #50575e;
+}
+
+.mtug-stat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.stat-label {
+    font-size: 1em;
+    font-weight: 500;
+    color: #50575e;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* Stat colors */
+.card-suspicious-files .stat-number {
+    color: #d63638;
+    font-weight: bold;
+}
+
+.card-suspicious-dirs .stat-number {
+    color: #dba617;
+    font-weight: bold;
+}
+
+.card-safe .stat-number {
+    color: #00a32a;
+}
+
+/* Results Table */
+.mtug-results-area {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+}
+
+/* Severity Badges */
+.mtug-severity-critical,
+.mtug-severity-high,
+.mtug-severity-medium,
+.mtug-severity-low {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mtug-severity-critical {
+    background-color: #d63638;
+    color: #fff;
+}
+
+.mtug-severity-high {
+    background-color: #dba617;
+    /* High is often orange */
+    color: #fff;
+}
+
+.mtug-severity-medium {
+    background-color: #ffcc00;
+    /* Medium yellow */
+    color: #000;
+}
+
+.mtug-severity-low {
+    background-color: #00a32a;
+    color: #fff;
+}
+
+/* Path Styling */
+.mtug-path-cell {
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #2c3338;
+}
+
+.mtug-path-folder {
+    color: #646970;
+}
+
+.mtug-path-file {
+    font-weight: bold;
+}
+
+/* Sorting */
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px !important;
+}
+
+/* Table Header Styling */
+#mtug-results-table thead th {
+    background-color: #e5e5e5;
+    color: #1d2327;
+    font-weight: 700;
+    border-bottom: 2px solid #c3c4c7;
+}
+
+th.sortable:hover {
+    background-color: #dcdcde;
+    color: #000;
+}
+
+th.sortable::after {
+    content: '\f156';
+    /* dashicons-sort */
+    font-family: dashicons;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a7aaad;
+    font-weight: 400;
+    font-size: 14px;
+    display: none;
+    /* Hide default, only show on hover or active */
+}
+
+th.sortable:hover::after {
+    display: inline-block;
+}
+
+th.sortable.sorted-asc::after {
+    content: '\f142';
+    /* dashicons-arrow-up */
+    color: #1d2327;
+    display: inline-block;
+}
+
+th.sortable.sorted-desc::after {
+    content: '\f140';
+    /* dashicons-arrow-down */
+    color: #1d2327;
+    display: inline-block;
+}
+
+/* Search Wrapper */
+.mtug-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.mtug-search-wrapper .dashicons {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8c8f94;
+    pointer-events: none;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mtug-search-wrapper input#mtug-search-input {
+    padding-left: 32px !important;
+    width: 250px;
+}
+
+/* Action Column Styling */
+.mtug-action-cell {
+    white-space: nowrap;
+    width: 140px;
+}
+
+.mtug-action-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mtug-action-btn,
+.mtug-delete-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    min-height: 28px !important;
+    line-height: 1 !important;
+    border: 1px solid #c3c4c7 !important;
+    background: #f6f7f7 !important;
+    border-radius: 3px !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    margin: 0 !important;
+}
+
+.mtug-action-btn .dashicons,
+.mtug-delete-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1 !important;
+    /* Force line-height to match height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Button Colors */
+.mtug-vt-btn {
+    color: #2271b1 !important;
+    border-color: #2271b1 !important;
+}
+
+.mtug-vt-btn:hover {
+    background-color: #f0f6fc !important;
+    color: #2271b1 !important;
+}
+
+.mtug-copy-hash {
+    color: #50575e !important;
+}
+
+.mtug-copy-hash:hover {
+    background-color: #fff !important;
+    border-color: #50575e !important;
+}
+
+.mtug-delete-btn {
+    color: #d63638 !important;
+    border-color: #d63638 !important;
+}
+
+.mtug-delete-btn:hover {
+    background-color: #d63638 !important;
+    color: #fff !important;
+    border-color: #ab2324 !important;
+}
+
+.mtug-delete-btn:hover .dashicons {
+    color: #fff !important;
+}
+
+/* 3 Circles Dashboard */
+.mtug-circles-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin: 40px 0;
+    /* Increase vertical spacing */
+    flex-wrap: wrap;
+}
+
+.mtug-controls-card {
+    min-height: 400px;
+    /* Make it taller */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Distribute content */
+}
+
+.mtug-actions {
+    margin-top: auto;
+    /* Push to bottom if needed, or just standard margin */
+    padding-top: 30px;
+    text-align: center;
+}
+
+#mtug-start-scan {
+    font-size: 1.2rem;
+    padding: 12px 40px;
+    height: auto;
+    border-radius: 50px;
+    /* Pill shape */
+    box-shadow: 0 4px 10px rgba(34, 113, 177, 0.3);
+    /* Subtle shadow */
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+#mtug-start-scan:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(34, 113, 177, 0.4);
+}
+
+#mtug-start-scan:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.mtug-circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+}
+
+.mtug-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #f0f0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Circle Colors */
+.mtug-circle-status.safe {
+    border-color: #00a32a;
+    color: #00a32a;
+    background: #f6fff8;
+}
+
+.mtug-circle-status.threat {
+    border-color: #d63638;
+    color: #d63638;
+    background: #fff8f8;
+}
+
+.mtug-circle-scope {
+    border-color: #dba617;
+    color: #dba617;
+    background: #fffff6;
+}
+
+.mtug-circle-recency {
+    border-color: #2271b1;
+    color: #2271b1;
+    background: #f0f6fc;
+}
+
+.mtug-circle .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.mtug-circle-label {
+    font-weight: 600;
+    color: #646970;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.mtug-circle-val {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #1d2327;
+}
+
+@media (max-width: 480px) {
+    .mtug-circles-grid {
+        flex-direction: column;
+    }
+}
